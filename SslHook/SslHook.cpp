@@ -1,7 +1,7 @@
 // ========================================================================================================================
 // SslHook
 //
-// Copyright ©2007 Liam Kirton <liam@int3.ws>
+// Copyright ©2007-2008 Liam Kirton <liam@int3.ws>
 // ========================================================================================================================
 // SslHook.cpp
 //
@@ -41,6 +41,8 @@ DWORD WINAPI ComCallThreadProc(LPVOID lpParameter);
 typedef struct _COM_CALL
 {
 	unsigned short Type;
+
+	unsigned int Thread;
 	
 	BSTR *Buffer1;
 	BSTR *Buffer2;
@@ -374,8 +376,6 @@ void InstallHooks()
 			throw std::exception("GetProcAddress(\"DecryptMessage\") Failed.");
 		}
 
-		EncryptMessage
-
 		unsigned char *lpEncryptMessage = reinterpret_cast<unsigned char *>(fpEncryptMessage);
 		unsigned char *lpEncryptMessagePrologueHook = reinterpret_cast<unsigned char *>(EncryptMessagePrologueHook);
 		unsigned char *lpEncryptMessageEpilogueHook = reinterpret_cast<unsigned char *>(EncryptMessageEpilogueHook);
@@ -502,6 +502,7 @@ void __stdcall EncryptMessagePrologueHookProc(PCtxtHandle phContext, ULONG fQOP,
 				BSTR modifiedEncryptBuffer = NULL;
 				
 				COM_CALL comCall;
+				comCall.Thread = GetCurrentThreadId();
 				comCall.Type = Type_EncryptMessagePrologueFilter;
 				comCall.Buffer1 = &encryptBuffer;
 				comCall.Buffer2 = &modifiedEncryptBuffer;
@@ -572,6 +573,7 @@ void __stdcall EncryptMessageEpilogueHookProc(PCtxtHandle phContext, ULONG fQOP,
 					originalBuffer = SysAllocStringByteLen(reinterpret_cast<char *>(pMessage->pBuffers[i].pvBuffer), pMessage->pBuffers[i].cbBuffer);
 
 					COM_CALL comCall;
+					comCall.Thread = GetCurrentThreadId();
 					comCall.Type = Type_EncryptMessageEpilogueFilter;
 					comCall.Buffer1 = &originalBuffer;
 					comCall.Buffer2 = &encryptedBuffer;
@@ -624,6 +626,7 @@ void __stdcall DecryptMessageEpilogueHookProc(PCtxtHandle phContext, PSecBufferD
 				BSTR modifiedDecryptBuffer = NULL;
 
 				COM_CALL comCall;
+				comCall.Thread = GetCurrentThreadId();
 				comCall.Type = Type_DecryptMessageEpilogueFilter;
 				comCall.Buffer1 = &decryptBuffer;
 				comCall.Buffer2 = &modifiedDecryptBuffer;
@@ -762,12 +765,14 @@ DWORD WINAPI ComCallThreadProc(LPVOID lpParameter)
 					{
 						case Type_EncryptMessagePrologueFilter:
 							g_ComCallParameter->hResult = pSslPyFilter->EncryptMessagePrologueFilter(GetCurrentProcessId(),
+																									 g_ComCallParameter->Thread,
 																								     g_ComCallParameter->Buffer1,
 																								     g_ComCallParameter->Buffer2);
 							break;
 						
 						case Type_EncryptMessageEpilogueFilter:
 							g_ComCallParameter->hResult = pSslPyFilter->EncryptMessageEpilogueFilter(GetCurrentProcessId(),
+																									 g_ComCallParameter->Thread,
 																								     g_ComCallParameter->Buffer1,
 																									 g_ComCallParameter->Buffer2);
 							break;
@@ -777,6 +782,7 @@ DWORD WINAPI ComCallThreadProc(LPVOID lpParameter)
 
 						case Type_DecryptMessageEpilogueFilter:
 							g_ComCallParameter->hResult = pSslPyFilter->DecryptMessageEpilogueFilter(GetCurrentProcessId(),
+																									 g_ComCallParameter->Thread,
 																								     g_ComCallParameter->Buffer1,
 																								     g_ComCallParameter->Buffer2);
 							break;

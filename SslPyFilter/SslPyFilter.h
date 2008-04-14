@@ -1,7 +1,7 @@
 // ========================================================================================================================
 // SslPyFilter
 //
-// Copyright ©2007 Liam Kirton <liam@int3.ws>
+// Copyright ©2007-2008 Liam Kirton <liam@int3.ws>
 // ========================================================================================================================
 // SslPyFilter.h
 //
@@ -28,10 +28,9 @@ public:
 	STDMETHODIMP_(DWORD) AddRef();
 	STDMETHODIMP_(DWORD) Release();
 
-	STDMETHODIMP EncryptMessagePrologueFilter(unsigned int process, BSTR *encryptBuffer, BSTR *modifiedEncryptBuffer);
-	STDMETHODIMP EncryptMessageEpilogueFilter(unsigned int process, BSTR *unencryptedBuffer, BSTR *encryptedBuffer);
-
-	STDMETHODIMP DecryptMessageEpilogueFilter(unsigned int process, BSTR *decryptBuffer, BSTR *modifiedDecryptBuffer);
+	STDMETHODIMP EncryptMessagePrologueFilter(unsigned int process, unsigned int thread, BSTR *encryptBuffer, BSTR *modifiedEncryptBuffer);
+	STDMETHODIMP EncryptMessageEpilogueFilter(unsigned int process, unsigned int thread, BSTR *unencryptedBuffer, BSTR *encryptedBuffer);
+	STDMETHODIMP DecryptMessageEpilogueFilter(unsigned int process, unsigned int thread, BSTR *decryptBuffer, BSTR *modifiedDecryptBuffer);
 
 	STDMETHODIMP RecvFilter(unsigned int process,
 							unsigned int thread,

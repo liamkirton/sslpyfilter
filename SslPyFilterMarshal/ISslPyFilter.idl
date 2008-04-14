@@ -4,10 +4,9 @@ import "ocidl.idl";
 [object, uuid(A3D201DE-0DDD-497a-B3DC-38048A9236C1), oleautomation]
 interface ISslPyFilter : IUnknown
 {
-	HRESULT EncryptMessagePrologueFilter([in] unsigned int process, [in] BSTR *encryptBuffer, [out] BSTR *modifiedEncryptBuffer);
-	HRESULT EncryptMessageEpilogueFilter([in] unsigned int process, [in] BSTR *unencryptedBuffer, [in] BSTR *encryptedBuffer);
-
-	HRESULT DecryptMessageEpilogueFilter([in] unsigned int process, [in] BSTR *decryptBuffer, [out] BSTR *modifiedDecryptBuffer);
+	HRESULT EncryptMessagePrologueFilter([in] unsigned int process, [in] unsigned int thread, [in] BSTR *encryptBuffer, [out] BSTR *modifiedEncryptBuffer);
+	HRESULT EncryptMessageEpilogueFilter([in] unsigned int process, [in] unsigned int thread, [in] BSTR *unencryptedBuffer, [in] BSTR *encryptedBuffer);
+	HRESULT DecryptMessageEpilogueFilter([in] unsigned int process, [in] unsigned int thread, [in] BSTR *decryptBuffer, [out] BSTR *modifiedDecryptBuffer);
 
 	HRESULT RecvFilter([in] unsigned int process,
 					   [in] unsigned int thread,

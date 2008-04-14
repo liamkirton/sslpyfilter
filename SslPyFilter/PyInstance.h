@@ -1,7 +1,7 @@
 // ========================================================================================================================
 // SslPyFilter
 //
-// Copyright ©2007 Liam Kirton <liam@int3.ws>
+// Copyright ©2007-2008 Liam Kirton <liam@int3.ws>
 // ========================================================================================================================
 // PyInstance.h
 //
@@ -35,8 +35,8 @@ public:
 	void Load(const std::string &path);
 	void Unload();
 
-	void EncryptMessageFilter(unsigned int process, BSTR *encryptBuffer, BSTR *modifiedEncryptBuffer);
-	void DecryptMessageFilter(unsigned int process, BSTR *decryptBuffer, BSTR *modifiedDecryptBuffer);
+	void EncryptMessageFilter(unsigned int process, unsigned int thread, BSTR *encryptBuffer, BSTR *modifiedEncryptBuffer);
+	void DecryptMessageFilter(unsigned int process, unsigned int thread, BSTR *decryptBuffer, BSTR *modifiedDecryptBuffer);
 
 	static PyInstance *GetInstance();
 	static PyObject *PyInstance::SetEncryptFilter(PyObject *dummy, PyObject *args);

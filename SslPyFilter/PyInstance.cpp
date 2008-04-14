@@ -1,7 +1,7 @@
 // ========================================================================================================================
 // SslPyFilter
 //
-// Copyright ©2007 Liam Kirton <liam@int3.ws>
+// Copyright ©2007-2008 Liam Kirton <liam@int3.ws>
 // ========================================================================================================================
 // PyInstance.cpp
 //
@@ -140,7 +140,7 @@ void PyInstance::Unload()
 
 // ========================================================================================================================
 
-void PyInstance::EncryptMessageFilter(unsigned int process, BSTR *encryptBuffer, BSTR *modifiedEncryptBuffer)
+void PyInstance::EncryptMessageFilter(unsigned int process, unsigned int thread, BSTR *encryptBuffer, BSTR *modifiedEncryptBuffer)
 {
 	__try
 	{
@@ -149,7 +149,7 @@ void PyInstance::EncryptMessageFilter(unsigned int process, BSTR *encryptBuffer,
 		char *pBstr = reinterpret_cast<char *>(&(*encryptBuffer[0]));
 		unsigned int pyBufferLen = SysStringByteLen(*encryptBuffer);
 		
-		PyObject *arglist = Py_BuildValue("(I,s#,i)", process, pBstr, pyBufferLen, pyBufferLen);
+		PyObject *arglist = Py_BuildValue("(I,I,s#)", process, thread, pBstr, pyBufferLen);
 		PyObject *result = PyEval_CallObject(pyEncryptFilter_, arglist);
 		Py_DECREF(arglist);
 		arglist = NULL;
@@ -160,10 +160,26 @@ void PyInstance::EncryptMessageFilter(unsigned int process, BSTR *encryptBuffer,
 			{
 				PyObject *pReturnBuffer = NULL;
 				unsigned int pReturnBufferLen = 0;
+				char fillChar = '\0';
 				
-				if(PyArg_Parse(result, "s#", &pReturnBuffer, &pReturnBufferLen))
+				if(PyArg_ParseTuple(result, "s#c", &pReturnBuffer, &pReturnBufferLen, &fillChar))
 				{
-					*modifiedEncryptBuffer = SysAllocStringByteLen(reinterpret_cast<char *>(pReturnBuffer), pReturnBufferLen);
+					pyBufferLen = max(pyBufferLen, pReturnBufferLen);
+
+					*modifiedEncryptBuffer = SysAllocStringByteLen(NULL, pyBufferLen);
+					pBstr = reinterpret_cast<char *>(&(*modifiedEncryptBuffer[0]));
+
+					for(unsigned int i = 0; i < pyBufferLen; ++i)
+					{
+						if(i < pReturnBufferLen)
+						{
+							pBstr[i] = reinterpret_cast<char *>(pReturnBuffer)[i];
+						}
+						else
+						{
+							pBstr[i] = fillChar;
+						}
+					}
 				}
 				else
 				{
@@ -189,7 +205,7 @@ void PyInstance::EncryptMessageFilter(unsigned int process, BSTR *encryptBuffer,
 
 // ========================================================================================================================
 
-void PyInstance::DecryptMessageFilter(unsigned int process, BSTR *decryptBuffer, BSTR *modifiedDecryptBuffer)
+void PyInstance::DecryptMessageFilter(unsigned int process, unsigned int thread, BSTR *decryptBuffer, BSTR *modifiedDecryptBuffer)
 {
 	__try
 	{
@@ -198,7 +214,7 @@ void PyInstance::DecryptMessageFilter(unsigned int process, BSTR *decryptBuffer,
 		char *pBstr = reinterpret_cast<char *>(&(*decryptBuffer[0]));
 		unsigned int pyBufferLen = SysStringByteLen(*decryptBuffer);
 		
-		PyObject *arglist = Py_BuildValue("(I,s#,i)", process, pBstr, pyBufferLen, pyBufferLen);
+		PyObject *arglist = Py_BuildValue("(I,I,s#)", process, thread, pBstr, pyBufferLen);
 		PyObject *result = PyEval_CallObject(pyDecryptFilter_, arglist);
 		Py_DECREF(arglist);
 		arglist = NULL;

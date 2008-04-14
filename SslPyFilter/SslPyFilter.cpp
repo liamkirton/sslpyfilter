@@ -1,7 +1,7 @@
 // ========================================================================================================================
 // SslPyFilter
 //
-// Copyright ©2007 Liam Kirton <liam@int3.ws>
+// Copyright ©2007-2008 Liam Kirton <liam@int3.ws>
 // ========================================================================================================================
 // SslPyFilter.cpp
 //
@@ -75,12 +75,12 @@ STDMETHODIMP_(DWORD) SslPyFilter::Release()
 
 // ========================================================================================================================
 
-STDMETHODIMP SslPyFilter::EncryptMessagePrologueFilter(unsigned int process, BSTR *encryptBuffer, BSTR *modifiedEncryptBuffer)
+STDMETHODIMP SslPyFilter::EncryptMessagePrologueFilter(unsigned int process, unsigned int thread, BSTR *encryptBuffer, BSTR *modifiedEncryptBuffer)
 {
 	PyInstance *pyInstance = PyInstance::GetInstance();
 	if(pyInstance != NULL)
 	{
-		pyInstance->EncryptMessageFilter(process, encryptBuffer, modifiedEncryptBuffer);
+		pyInstance->EncryptMessageFilter(process, thread, encryptBuffer, modifiedEncryptBuffer);
 	}
 	else
 	{
@@ -91,7 +91,7 @@ STDMETHODIMP SslPyFilter::EncryptMessagePrologueFilter(unsigned int process, BST
 
 // ========================================================================================================================
 
-STDMETHODIMP SslPyFilter::EncryptMessageEpilogueFilter(unsigned int process, BSTR *originalBuffer, BSTR *encryptBuffer)
+STDMETHODIMP SslPyFilter::EncryptMessageEpilogueFilter(unsigned int process, unsigned int thread, BSTR *originalBuffer, BSTR *encryptBuffer)
 {
 	SslBufferMap *sslBufferMap = SslBufferMap::GetInstance();
 	sslBufferMap->Map(*originalBuffer, *encryptBuffer);
@@ -100,12 +100,12 @@ STDMETHODIMP SslPyFilter::EncryptMessageEpilogueFilter(unsigned int process, BST
 
 // ========================================================================================================================
 
-STDMETHODIMP SslPyFilter::DecryptMessageEpilogueFilter(unsigned int process, BSTR *decryptBuffer, BSTR *modifiedDecryptBuffer)
+STDMETHODIMP SslPyFilter::DecryptMessageEpilogueFilter(unsigned int process, unsigned int thread, BSTR *decryptBuffer, BSTR *modifiedDecryptBuffer)
 {
 	PyInstance *pyInstance = PyInstance::GetInstance();
 	if(pyInstance != NULL)
 	{
-		pyInstance->DecryptMessageFilter(process, decryptBuffer, modifiedDecryptBuffer);
+		pyInstance->DecryptMessageFilter(process, thread, decryptBuffer, modifiedDecryptBuffer);
 	}
 	else
 	{

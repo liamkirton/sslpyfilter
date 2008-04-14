@@ -3,8 +3,8 @@
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 7.00.0499 */
-/* at Mon Dec 17 14:20:43 2007
+ /* File created by MIDL compiler version 7.00.0500 */
+/* at Mon Apr 14 19:36:37 2008
  */
 /* Compiler settings for .\ISslPyFilter.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -77,16 +77,19 @@ EXTERN_C const IID IID_ISslPyFilter;
     public:
         virtual HRESULT STDMETHODCALLTYPE EncryptMessagePrologueFilter( 
             /* [in] */ unsigned int process,
+            /* [in] */ unsigned int thread,
             /* [in] */ BSTR *encryptBuffer,
             /* [out] */ BSTR *modifiedEncryptBuffer) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EncryptMessageEpilogueFilter( 
             /* [in] */ unsigned int process,
+            /* [in] */ unsigned int thread,
             /* [in] */ BSTR *unencryptedBuffer,
             /* [in] */ BSTR *encryptedBuffer) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE DecryptMessageEpilogueFilter( 
             /* [in] */ unsigned int process,
+            /* [in] */ unsigned int thread,
             /* [in] */ BSTR *decryptBuffer,
             /* [out] */ BSTR *modifiedDecryptBuffer) = 0;
         
@@ -128,18 +131,21 @@ EXTERN_C const IID IID_ISslPyFilter;
         HRESULT ( STDMETHODCALLTYPE *EncryptMessagePrologueFilter )( 
             ISslPyFilter * This,
             /* [in] */ unsigned int process,
+            /* [in] */ unsigned int thread,
             /* [in] */ BSTR *encryptBuffer,
             /* [out] */ BSTR *modifiedEncryptBuffer);
         
         HRESULT ( STDMETHODCALLTYPE *EncryptMessageEpilogueFilter )( 
             ISslPyFilter * This,
             /* [in] */ unsigned int process,
+            /* [in] */ unsigned int thread,
             /* [in] */ BSTR *unencryptedBuffer,
             /* [in] */ BSTR *encryptedBuffer);
         
         HRESULT ( STDMETHODCALLTYPE *DecryptMessageEpilogueFilter )( 
             ISslPyFilter * This,
             /* [in] */ unsigned int process,
+            /* [in] */ unsigned int thread,
             /* [in] */ BSTR *decryptBuffer,
             /* [out] */ BSTR *modifiedDecryptBuffer);
         
@@ -183,14 +189,14 @@ EXTERN_C const IID IID_ISslPyFilter;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define ISslPyFilter_EncryptMessagePrologueFilter(This,process,encryptBuffer,modifiedEncryptBuffer)	\
-    ( (This)->lpVtbl -> EncryptMessagePrologueFilter(This,process,encryptBuffer,modifiedEncryptBuffer) ) 
+#define ISslPyFilter_EncryptMessagePrologueFilter(This,process,thread,encryptBuffer,modifiedEncryptBuffer)	\
+    ( (This)->lpVtbl -> EncryptMessagePrologueFilter(This,process,thread,encryptBuffer,modifiedEncryptBuffer) ) 
 
-#define ISslPyFilter_EncryptMessageEpilogueFilter(This,process,unencryptedBuffer,encryptedBuffer)	\
-    ( (This)->lpVtbl -> EncryptMessageEpilogueFilter(This,process,unencryptedBuffer,encryptedBuffer) ) 
+#define ISslPyFilter_EncryptMessageEpilogueFilter(This,process,thread,unencryptedBuffer,encryptedBuffer)	\
+    ( (This)->lpVtbl -> EncryptMessageEpilogueFilter(This,process,thread,unencryptedBuffer,encryptedBuffer) ) 
 
-#define ISslPyFilter_DecryptMessageEpilogueFilter(This,process,decryptBuffer,modifiedDecryptBuffer)	\
-    ( (This)->lpVtbl -> DecryptMessageEpilogueFilter(This,process,decryptBuffer,modifiedDecryptBuffer) ) 
+#define ISslPyFilter_DecryptMessageEpilogueFilter(This,process,thread,decryptBuffer,modifiedDecryptBuffer)	\
+    ( (This)->lpVtbl -> DecryptMessageEpilogueFilter(This,process,thread,decryptBuffer,modifiedDecryptBuffer) ) 
 
 #define ISslPyFilter_RecvFilter(This,process,thread,socket,recvBuffer,modifiedRecvBuffer,remaining)	\
     ( (This)->lpVtbl -> RecvFilter(This,process,thread,socket,recvBuffer,modifiedRecvBuffer,remaining) ) 

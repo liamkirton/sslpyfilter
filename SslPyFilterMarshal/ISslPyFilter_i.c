@@ -5,8 +5,8 @@
 /* link this file in with the server and any clients */
 
 
- /* File created by MIDL compiler version 7.00.0499 */
-/* at Mon Dec 17 14:20:43 2007
+ /* File created by MIDL compiler version 7.00.0500 */
+/* at Mon Apr 14 19:36:37 2008
  */
 /* Compiler settings for .\ISslPyFilter.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)

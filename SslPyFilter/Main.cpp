@@ -1,7 +1,7 @@
 // ========================================================================================================================
 // SslPyFilter
 //
-// Copyright ©2007 Liam Kirton <liam@int3.ws>
+// Copyright ©2007-2008 Liam Kirton <liam@int3.ws>
 // ========================================================================================================================
 // Main.cpp
 //
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 {
 	std::cout << std::endl
 			  << "SslPyFilter " << c_SslPyFilterVersion << std::endl
-			  << "Copyright \xB8" << "2007 Liam Kirton <liam@int3.ws>" << std::endl << std::endl
+			  << "Copyright \xB8" << "2007-2008 Liam Kirton <liam@int3.ws>" << std::endl << std::endl
 			  << "Built at " << __TIME__ << " on " << __DATE__ << std::endl << std::endl;
 
 	if(argc != 2)
