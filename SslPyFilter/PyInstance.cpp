@@ -160,26 +160,10 @@ void PyInstance::EncryptMessageFilter(unsigned int process, unsigned int thread,
 			{
 				PyObject *pReturnBuffer = NULL;
 				unsigned int pReturnBufferLen = 0;
-				char fillChar = '\0';
 				
-				if(PyArg_ParseTuple(result, "s#c", &pReturnBuffer, &pReturnBufferLen, &fillChar))
+				if(PyArg_Parse(result, "s#", &pReturnBuffer, &pReturnBufferLen))
 				{
-					pyBufferLen = max(pyBufferLen, pReturnBufferLen);
-
-					*modifiedEncryptBuffer = SysAllocStringByteLen(NULL, pyBufferLen);
-					pBstr = reinterpret_cast<char *>(&(*modifiedEncryptBuffer[0]));
-
-					for(unsigned int i = 0; i < pyBufferLen; ++i)
-					{
-						if(i < pReturnBufferLen)
-						{
-							pBstr[i] = reinterpret_cast<char *>(pReturnBuffer)[i];
-						}
-						else
-						{
-							pBstr[i] = fillChar;
-						}
-					}
+					*modifiedEncryptBuffer = SysAllocStringByteLen(reinterpret_cast<char *>(pReturnBuffer), pReturnBufferLen);
 				}
 				else
 				{
