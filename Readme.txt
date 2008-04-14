@@ -1,6 +1,6 @@
 ================================================================================
 SslPyFilter 0.3.2
-Copyright ©2007 Liam Kirton <liam@int3.ws>
+Copyright ©2008 Liam Kirton <liam@int3.ws>
 
 14th April 2008
 http://int3.ws/
