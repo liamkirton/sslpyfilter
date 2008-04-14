@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SslHook", "SslHook\SslHook.vcproj", "{26EB09EB-0251-4FE1-806D-82579696802E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1C02763F-88EC-46A8-9B8D-91B2A259F488} = {1C02763F-88EC-46A8-9B8D-91B2A259F488}
+		{25313081-CF6C-4113-9916-B4B8C11E6711} = {25313081-CF6C-4113-9916-B4B8C11E6711}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SslPyFilter", "SslPyFilter\SslPyFilter.vcproj", "{1C02763F-88EC-46A8-9B8D-91B2A259F488}"
+	ProjectSection(ProjectDependencies) = postProject
+		{25313081-CF6C-4113-9916-B4B8C11E6711} = {25313081-CF6C-4113-9916-B4B8C11E6711}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SslPyFilterMarshal", "SslPyFilterMarshal\SslPyFilterMarshal.vcproj", "{25313081-CF6C-4113-9916-B4B8C11E6711}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SslLsp", "SslLsp\SslLsp.vcproj", "{5662E88A-E62D-4BFA-B410-977746B6B92C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1C02763F-88EC-46A8-9B8D-91B2A259F488} = {1C02763F-88EC-46A8-9B8D-91B2A259F488}
+		{25313081-CF6C-4113-9916-B4B8C11E6711} = {25313081-CF6C-4113-9916-B4B8C11E6711}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26EB09EB-0251-4FE1-806D-82579696802E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{26EB09EB-0251-4FE1-806D-82579696802E}.Debug|Win32.Build.0 = Debug|Win32
+		{26EB09EB-0251-4FE1-806D-82579696802E}.Release|Win32.ActiveCfg = Release|Win32
+		{26EB09EB-0251-4FE1-806D-82579696802E}.Release|Win32.Build.0 = Release|Win32
+		{1C02763F-88EC-46A8-9B8D-91B2A259F488}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1C02763F-88EC-46A8-9B8D-91B2A259F488}.Debug|Win32.Build.0 = Debug|Win32
+		{1C02763F-88EC-46A8-9B8D-91B2A259F488}.Release|Win32.ActiveCfg = Release|Win32
+		{1C02763F-88EC-46A8-9B8D-91B2A259F488}.Release|Win32.Build.0 = Release|Win32
+		{25313081-CF6C-4113-9916-B4B8C11E6711}.Debug|Win32.ActiveCfg = Debug|Win32
+		{25313081-CF6C-4113-9916-B4B8C11E6711}.Debug|Win32.Build.0 = Debug|Win32
+		{25313081-CF6C-4113-9916-B4B8C11E6711}.Release|Win32.ActiveCfg = Release|Win32
+		{25313081-CF6C-4113-9916-B4B8C11E6711}.Release|Win32.Build.0 = Release|Win32
+		{5662E88A-E62D-4BFA-B410-977746B6B92C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5662E88A-E62D-4BFA-B410-977746B6B92C}.Debug|Win32.Build.0 = Debug|Win32
+		{5662E88A-E62D-4BFA-B410-977746B6B92C}.Release|Win32.ActiveCfg = Release|Win32
+		{5662E88A-E62D-4BFA-B410-977746B6B92C}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
