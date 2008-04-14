@@ -23,7 +23,7 @@ achieved with an even more tremendous hack).
 DLL injection and API hooking techniques are used to capture the data, whilst
 modification is performed by Python language scripts loaded dynamically by the
 SslPyFilter.exe application. Buffer expansion is achieved through the addition
-of a layered service provider (borrowed from LspPyFilter).
+of a layered service provider (borrowed from LspPyFilter) and a cunning idea :)
 
 Please email any comments, questions or suggestions to liam@int3.ws.
 
